@@ -20,3 +20,12 @@ A modern responsive doctor clinic website with appointment booking, services sec
 
 ![Footer](footer.png)
 
+## Features
+
+- Appointment Booking
+- Responsive Design
+- Doctor Information
+- Contact Form
+- Chat Support
+- Modern UI Design
+
