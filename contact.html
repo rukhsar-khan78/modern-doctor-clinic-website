@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact & Book Appointment – MediCare Clinic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0a2342;
+      --blue: #1a6bcc;
+      --sky: #e8f4fd;
+      --accent: #2ec4f3;
+      --white: #ffffff;
+      --gray: #f5f7fa;
+      --text: #1e2d40;
+      --muted: #5a7080;
+      --radius: 14px;
+      --shadow: 0 8px 32px rgba(10,35,66,0.10);
+      --success: #22c55e;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(10,35,66,0.08);
+      padding: 0 5vw;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 70px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem; font-weight: 700; color: var(--navy);
+      text-decoration: none;
+    }
+    .nav-logo .cross {
+      width: 34px; height: 34px; background: var(--blue);
+      border-radius: 8px; display: grid; place-items: center;
+    }
+    .nav-logo .cross::before {
+      content: '+'; color: white; font-size: 1.4rem; font-weight: 300; line-height: 1;
+    }
+    .nav-links { display: flex; gap: 8px; align-items: center; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted); font-weight: 500; font-size: 0.95rem;
+      padding: 7px 16px; border-radius: 8px; transition: all 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--blue); background: var(--sky); }
+    .nav-links .btn-nav {
+      background: var(--blue); color: white !important;
+      padding: 9px 20px; border-radius: 10px;
+    }
+    .nav-links .btn-nav:hover { background: var(--navy); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer;
+      background: none; border: none; padding: 4px;
+    }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--navy); border-radius: 2px; }
+    .mobile-menu {
+      display: none; flex-direction: column;
+      background: white; border-top: 1px solid var(--sky);
+      padding: 16px 5vw 20px;
+    }
+    .mobile-menu a {
+      text-decoration: none; color: var(--text); font-weight: 500;
+      padding: 12px 0; border-bottom: 1px solid var(--sky); font-size: 1rem;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu.open { display: flex; }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a4a8a 100%);
+      padding: 64px 8vw 56px; text-align: center; position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 100%, rgba(46,196,243,0.15) 0%, transparent 60%);
+    }
+    .page-hero .breadcrumb {
+      display: flex; align-items: center; gap: 8px; justify-content: center;
+      color: rgba(255,255,255,0.5); font-size: 0.83rem; margin-bottom: 16px;
+    }
+    .page-hero .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem); color: white; font-weight: 700;
+      position: relative; z-index: 1;
+    }
+    .page-hero p { color: rgba(255,255,255,0.65); margin-top: 12px; font-size: 1rem; position: relative; z-index: 1; }
+
+    /* ── CONTACT INFO STRIP ── */
+    .contact-strip {
+      background: var(--blue); padding: 0;
+    }
+    .strip-inner {
+      display: flex; justify-content: center; flex-wrap: wrap;
+      gap: 0; max-width: 1100px; margin: 0 auto;
+    }
+    .strip-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 20px 36px; border-right: 1px solid rgba(255,255,255,0.15);
+      color: white; text-decoration: none; transition: background 0.2s;
+    }
+    .strip-item:last-child { border-right: none; }
+    .strip-item:hover { background: rgba(255,255,255,0.08); }
+    .strip-item .s-icon { font-size: 1.3rem; }
+    .strip-item .s-label { font-size: 0.75rem; color: rgba(255,255,255,0.65); font-weight: 500; display: block; }
+    .strip-item .s-val { font-size: 0.9rem; font-weight: 600; }
+
+    /* ── MAIN CONTENT ── */
+    .main-content {
+      padding: 72px 8vw;
+      display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: start;
+    }
+
+    /* ── INFO COLUMN ── */
+    .info-col {}
+    .info-card {
+      background: var(--gray); border-radius: var(--radius); padding: 28px; margin-bottom: 20px;
+    }
+    .info-card h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--navy); font-size: 1.1rem; margin-bottom: 18px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .info-row {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 12px 0; border-bottom: 1px solid rgba(10,35,66,0.06);
+      font-size: 0.92rem; color: var(--text); line-height: 1.6;
+    }
+    .info-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .info-row .ico { font-size: 1.1rem; margin-top: 1px; flex-shrink: 0; }
+    .info-row strong { display: block; font-weight: 600; color: var(--navy); font-size: 0.83rem; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .timing-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    .timing-table tr { border-bottom: 1px solid rgba(10,35,66,0.06); }
+    .timing-table tr:last-child { border-bottom: none; }
+    .timing-table td { padding: 9px 4px; }
+    .timing-table td:last-child { text-align: right; color: var(--navy); font-weight: 600; }
+    .timing-table .closed-td { color: #ef4444; font-weight: 600; }
+    .map-wrap {
+      border-radius: var(--radius); overflow: hidden;
+      border: 1.5px solid rgba(10,35,66,0.08); height: 240px;
+    }
+    .map-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+
+    /* ── FORM COLUMN ── */
+    .form-col {}
+    .form-card {
+      background: white; border-radius: 20px;
+      border: 1.5px solid rgba(10,35,66,0.08);
+      padding: 40px 36px;
+      box-shadow: 0 12px 48px rgba(10,35,66,0.08);
+    }
+    .form-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem; color: var(--navy); margin-bottom: 6px;
+    }
+    .form-card .form-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 32px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .form-group { display: flex; flex-direction: column; gap: 7px; }
+    .form-group.full { grid-column: 1 / -1; }
+    label { font-size: 0.82rem; font-weight: 600; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; }
+    label .req { color: var(--blue); margin-left: 2px; }
+    input, select, textarea {
+      border: 1.5px solid rgba(10,35,66,0.12); border-radius: 10px;
+      padding: 12px 14px; font-size: 0.93rem; font-family: inherit;
+      color: var(--text); background: var(--gray); transition: all 0.2s;
+      outline: none; width: 100%;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--blue); background: white;
+      box-shadow: 0 0 0 3px rgba(26,107,204,0.1);
+    }
+    input::placeholder, textarea::placeholder { color: #a0aec0; }
+    textarea { resize: vertical; min-height: 110px; }
+    .submit-btn {
+      width: 100%; padding: 15px; border-radius: 12px;
+      background: var(--blue); color: white; border: none;
+      font-size: 1rem; font-weight: 700; font-family: inherit;
+      cursor: pointer; transition: all 0.25s; margin-top: 8px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .submit-btn:hover { background: var(--navy); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(26,107,204,0.3); }
+    .form-note { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 14px; }
+
+    /* Success toast */
+    .toast {
+      display: none; background: var(--success); color: white;
+      border-radius: 12px; padding: 14px 20px; margin-top: 16px;
+      font-weight: 500; font-size: 0.9rem; text-align: center;
+      align-items: center; gap: 8px;
+    }
+    .toast.show { display: flex; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 56px 8vw 32px;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px; margin-bottom: 48px;
+    }
+    .footer-brand p { color: rgba(255,255,255,0.55); font-size: 0.9rem; line-height: 1.7; margin: 16px 0 24px; }
+    .footer-socials { display: flex; gap: 10px; }
+    .social-btn {
+      width: 36px; height: 36px; border-radius: 9px;
+      background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7);
+      display: grid; place-items: center; font-size: 0.85rem;
+      text-decoration: none; transition: all 0.2s; font-weight: 700;
+    }
+    .social-btn:hover { background: var(--blue); color: white; }
+    .footer-col h4 {
+      color: white; font-weight: 600; font-size: 0.9rem;
+      margin-bottom: 18px; letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col ul a:hover { color: var(--accent); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px; display: flex;
+      justify-content: space-between; align-items: center;
+      font-size: 0.83rem; color: rgba(255,255,255,0.35); flex-wrap: wrap; gap: 8px;
+    }
+
+    /* ── FLOATING ── */
+    .float-btns {
+      position: fixed; bottom: 24px; right: 24px;
+      display: flex; flex-direction: column; gap: 12px; z-index: 200;
+    }
+    .float-wa, .float-call {
+      width: 54px; height: 54px; border-radius: 50%;
+      display: grid; place-items: center; text-decoration: none;
+      font-size: 1.4rem; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      transition: transform 0.2s; position: relative;
+    }
+    .float-wa { background: #25d366; color: white; }
+    .float-call { background: var(--blue); color: white; }
+    .float-wa:hover, .float-call:hover { transform: scale(1.1); }
+    .float-label {
+      position: absolute; right: 62px; background: var(--navy); color: white;
+      padding: 5px 12px; border-radius: 8px; font-size: 0.78rem; font-weight: 500;
+      white-space: nowrap; opacity: 0; pointer-events: none;
+      transition: opacity 0.2s; top: 50%; transform: translateY(-50%);
+    }
+    .float-wa:hover .float-label, .float-call:hover .float-label { opacity: 1; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .main-content { grid-template-columns: 1fr; gap: 36px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .strip-inner { gap: 0; }
+      .strip-item { flex: 1 1 calc(50% - 1px); padding: 16px 20px; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 0 5vw; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .main-content { padding: 48px 5vw; }
+      .form-card { padding: 28px 20px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+      .strip-item { flex: 1 1 100%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); }
+      .strip-item:last-child { border-bottom: none; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <div class="cross"></div>
+    MediCare Clinic
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="contact.html" class="active">Contact</a>
+    <a href="contact.html" class="btn-nav">Book Appointment</a>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html">📅 Book Appointment</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="breadcrumb">
+    <a href="index.html">Home</a> <span>›</span> <span>Contact Us</span>
+  </div>
+  <h1>Get in Touch</h1>
+  <p>Book your appointment or reach us with any questions.</p>
+</div>
+
+<!-- CONTACT STRIP -->
+<div class="contact-strip">
+  <div class="strip-inner">
+    <a href="tel:+919876543210" class="strip-item">
+      <span class="s-icon">📞</span>
+      <div><span class="s-label">Call Us</span><span class="s-val">+91 98765 43210</span></div>
+    </a>
+    <a href="mailto:dr.arjun@medicareclinic.in" class="strip-item">
+      <span class="s-icon">📧</span>
+      <div><span class="s-label">Email Us</span><span class="s-val">dr.arjun@medicareclinic.in</span></div>
+    </a>
+    <a href="https://wa.me/919876543210" class="strip-item">
+      <span class="s-icon">💬</span>
+      <div><span class="s-label">WhatsApp</span><span class="s-val">+91 98765 43210</span></div>
+    </a>
+    <span class="strip-item">
+      <span class="s-icon">🕐</span>
+      <div><span class="s-label">Open Hours</span><span class="s-val">Mon–Sat, 9am–8pm</span></div>
+    </span>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
+  <!-- INFO COLUMN -->
+  <div class="info-col">
+    <div class="info-card">
+      <h3>📍 Clinic Address</h3>
+      <div class="info-row">
+        <span class="ico">🏥</span>
+        <div>
+          <strong>MediCare Clinic</strong>
+          12, Doctors' Colony, Near City Hospital,<br>
+          Hazratganj, Lucknow – 226001<br>
+          Uttar Pradesh, India
+        </div>
+      </div>
+      <div class="info-row">
+        <span class="ico">📞</span>
+        <div><strong>Phone</strong><a href="tel:+919876543210" style="color:var(--blue); text-decoration:none;">+91 98765 43210</a></div>
+      </div>
+      <div class="info-row">
+        <span class="ico">📧</span>
+        <div><strong>Email</strong><a href="mailto:dr.arjun@medicareclinic.in" style="color:var(--blue); text-decoration:none;">dr.arjun@medicareclinic.in</a></div>
+      </div>
+      <div class="info-row">
+        <span class="ico">💬</span>
+        <div><strong>WhatsApp</strong><a href="https://wa.me/919876543210" style="color:var(--blue); text-decoration:none;">+91 98765 43210</a></div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h3>🕐 Clinic Timings</h3>
+      <table class="timing-table">
+        <tr><td>Monday – Friday</td><td>9:00 AM – 1:00 PM &nbsp;|&nbsp; 5:00 – 8:00 PM</td></tr>
+        <tr><td>Saturday</td><td>9:00 AM – 2:00 PM</td></tr>
+        <tr><td>Sunday</td><td class="closed-td">Closed</td></tr>
+        <tr><td>Public Holidays</td><td class="closed-td">Closed</td></tr>
+      </table>
+    </div>
+
+    <!-- Google Maps Embed (Hazratganj, Lucknow) -->
+    <div class="map-wrap">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14235.28!2d80.9462!3d26.8467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39995744f0e4dcb3%3A0x9c8c61bd8c29c2f4!2sHazratganj%2C%20Lucknow%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+
+  <!-- FORM COLUMN -->
+  <div class="form-col">
+    <div class="form-card" id="appointment">
+      <h2>Book an Appointment</h2>
+      <p class="form-sub">Fill in the form below and we'll confirm your slot within 2 hours.</p>
+
+      <div class="form-grid" id="appointmentForm">
+        <div class="form-group">
+          <label for="fullName">Full Name <span class="req">*</span></label>
+          <input type="text" id="fullName" placeholder="e.g. Rahul Sharma" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number <span class="req">*</span></label>
+          <input type="tel" id="phone" placeholder="+91 98765 43210" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label for="apptDate">Appointment Date <span class="req">*</span></label>
+          <input type="date" id="apptDate" required />
+        </div>
+        <div class="form-group">
+          <label for="timeSlot">Preferred Time Slot <span class="req">*</span></label>
+          <select id="timeSlot" required>
+            <option value="" disabled selected>Select a time slot</option>
+            <optgroup label="Morning Session">
+              <option>9:00 AM – 9:30 AM</option>
+              <option>9:30 AM – 10:00 AM</option>
+              <option>10:00 AM – 10:30 AM</option>
+              <option>10:30 AM – 11:00 AM</option>
+              <option>11:00 AM – 11:30 AM</option>
+              <option>11:30 AM – 12:00 PM</option>
+              <option>12:00 PM – 12:30 PM</option>
+              <option>12:30 PM – 1:00 PM</option>
+            </optgroup>
+            <optgroup label="Evening Session (Mon–Fri)">
+              <option>5:00 PM – 5:30 PM</option>
+              <option>5:30 PM – 6:00 PM</option>
+              <option>6:00 PM – 6:30 PM</option>
+              <option>6:30 PM – 7:00 PM</option>
+              <option>7:00 PM – 7:30 PM</option>
+              <option>7:30 PM – 8:00 PM</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="visitType">Visit Type</label>
+          <select id="visitType">
+            <option value="" disabled selected>Select visit type</option>
+            <option>New Patient</option>
+            <option>Follow-up</option>
+            <option>Health Check-up</option>
+            <option>Vaccination</option>
+            <option>Emergency</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label for="message">Problem Description / Message <span class="req">*</span></label>
+          <textarea id="message" placeholder="Briefly describe your symptoms or reason for visit..." required></textarea>
+        </div>
+        <div class="form-group full">
+          <button class="submit-btn" onclick="submitForm()">
+            📅 Confirm Appointment
+          </button>
+          <div class="toast" id="successToast">
+            ✅ Appointment request received! We'll confirm within 2 hours.
+          </div>
+          <p class="form-note">🔒 Your information is private and secure. We never share your data.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo" style="color:white;">
+        <div class="cross"></div>MediCare Clinic
+      </a>
+      <p>Compassionate, expert medical care for you and your family. Your health is our highest priority.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn">f</a>
+        <a href="#" class="social-btn">in</a>
+        <a href="https://wa.me/919876543210" class="social-btn">w</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="contact.html#appointment">Book Appointment</a></li>
+        <li><a href="#">Patient Portal</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">12, Doctors' Colony, Hazratganj, Lucknow</a></li>
+        <li><a href="tel:+919876543210">+91 98765 43210</a></li>
+        <li><a href="mailto:dr.arjun@medicareclinic.in">dr.arjun@medicareclinic.in</a></li>
+        <li><a href="#">Mon–Fri: 9am–1pm, 5–8pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 MediCare Clinic. All rights reserved.</span>
+    <span>Designed with ❤️ for better healthcare</span>
+  </div>
+</footer>
+
+<!-- FLOATING BUTTONS -->
+<div class="float-btns">
+  <a href="https://wa.me/919876543210" target="_blank" class="float-wa" title="WhatsApp">
+    <span class="float-label">WhatsApp Us</span>💬
+  </a>
+  <a href="tel:+919876543210" class="float-call" title="Call Now">
+    <span class="float-label">Call Now</span>📞
+  </a>
+</div>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // Set min date to today
+  const dateInput = document.getElementById('apptDate');
+  const today = new Date().toISOString().split('T')[0];
+  if (dateInput) dateInput.min = today;
+
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').style.boxShadow =
+      window.scrollY > 10 ? '0 4px 20px rgba(10,35,66,0.10)' : 'none';
+  });
+
+  function submitForm() {
+    const name = document.getElementById('fullName').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const date = document.getElementById('apptDate').value;
+    const slot = document.getElementById('timeSlot').value;
+    const msg = document.getElementById('message').value.trim();
+
+    if (!name || !phone || !date || !slot || !msg) {
+      alert('Please fill in all required fields (marked with *).');
+      return;
+    }
+
+    // Show success toast
+    const toast = document.getElementById('successToast');
+    toast.classList.add('show');
+
+    // Reset form
+    ['fullName','phone','email','apptDate','message'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('timeSlot').selectedIndex = 0;
+    document.getElementById('visitType').selectedIndex = 0;
+
+    // Scroll to toast
+    toast.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    setTimeout(() => toast.classList.remove('show'), 6000);
+  }
+</script>
+</body>
+</html>
