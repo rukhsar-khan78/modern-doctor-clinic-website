@@ -2,29 +2,21 @@
 A modern responsive doctor clinic website with appointment booking, services section, contact page, and professional healthcare UI design.
 ## Website Preview
 
-### Homepage
-![Homepage](homepage 1.png)
+![Homepage](homepage%201.png)
 
-### About Page
-![About Page](about page.png)
+![About Page](about%20page.png)
 
-### Service Section
-![Service Section](service page.png)
+![Service Page](service%20page.png)
 
-### Additional Services
-![Additional Services](service page 2.png)
+![Additional Services](service%20page%202.png)
 
-### Appointment Section
-![Appointment](appointment page 2.png)
+![Appointment](appointment%20page%202.png)
 
-### Patient Reviews
-![Patient Reviews](patient review page.png)
+![Patient Review](patient%20review%20page.png)
 
-### Location Section
-![Location](Location page.png)
+![Location](Location%20page.png)
 
-### UI Design
-![UI Design](ui page.png)
+![UI Design](ui%20page.png)
 
-### Footer
 ![Footer](footer.png)
+
